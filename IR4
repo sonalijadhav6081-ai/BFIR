@@ -60,4 +60,27 @@ plt.title("Iris Dataset Clusters")
 plt.xlabel("Standardized Sepal Length")
 plt.ylabel("Standardized Sepal Width")
 plt.tight_layout()
-plt.show()
+plt.show() 
+
+1. What is clustering?
+Clustering is an unsupervised machine learning technique used to group similar data points together. Data points in the same cluster have similar characteristics.
+2. What is Agglomerative Hierarchical Clustering?
+It is a bottom-up clustering algorithm. Initially, every data point is treated as a separate cluster, and the closest clusters are repeatedly merged until the required number of clusters is obtained.
+3. What is hierarchical clustering?
+Hierarchical clustering creates a tree-like structure of clusters. This structure is represented using a diagram called a dendrogram.
+4. What is a dendrogram?
+A dendrogram is a tree-like diagram that shows how clusters are merged at different distances. It helps us understand the hierarchical relationship between data points.
+5. Which dataset is used in your program?
+I used the Iris dataset from Scikit-learn. It contains 150 flower samples, 4 features, and 3 flower species: Setosa, Versicolor, and Virginica.
+6. What is the Ward linkage method?
+Ward linkage merges clusters in a way that minimizes the increase in within-cluster variance. It generally creates compact and balanced clusters.
+7. Why do we use StandardScaler?
+StandardScaler converts features to a common scale with mean 0 and standard deviation 1. It prevents features with larger values from dominating distance calculations.
+8. What is the difference between Agglomerative and Divisive clustering?
+- Agglomerative: Bottom-up approach; starts with individual data points and merges them.
+- Divisive: Top-down approach; starts with one large cluster and divides it into smaller clusters.
+9. What is the purpose of n_clusters=3?
+It specifies that the algorithm should create 3 clusters. In this practical, we use 3 because the Iris dataset contains 3 flower species.
+Does cluster 0 represent Setosa, cluster 1 represent Versicolor, and cluster 2 represent Virginica?
+
+Answer: Not necessarily. Cluster labels are assigned by the algorithm and do not automatically match the original species labels. We need to compare the cluster assignments with the actual species to identify their correspondence.
