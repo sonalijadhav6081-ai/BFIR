@@ -44,27 +44,37 @@ else:
 O/P
 Enter number of documents:  3
 
-Enter Document 1:  Python is a programming language
-
-Enter Document 2:  Java is a programming language
-
-Enter Document 3:  Information retrieval uses search techniques
-
-Inverted Index:
-python : ['D1']
-is : ['D1', 'D2']
-a : ['D1', 'D2']
-programming : ['D1', 'D2']
-language : ['D1', 'D2']
-java : ['D2']
-information : ['D3']
-retrieval : ['D3']
-uses : ['D3']
-search : ['D3']
-techniques : ['D3']
+1:Python is a programming language
+2:Java is a programming language
+3:Information retrieval uses search techniqueS
 
 Enter search query:  programming
 
-Retrieved Documents:
-D1 : python is a programming language
-D2 : java is a programming language
+What is Information Retrieval (IR)?
+Information Retrieval is the process of searching and retrieving relevant information or documents from a collection based on a user's query.
+Example: Searching for a particular topic in Google.
+2. What is an Inverted Index?
+An inverted index is a data structure that stores each word along with the list of documents in which that word appears.
+Example: Python: [D1, D3] means Python appears in documents D1 and D3.
+3. Why is an Inverted Index used?
+It is used to make document searching faster and more efficient. Instead of checking every document, we directly find documents containing the search word.
+4. What is Document Retrieval?
+Document retrieval is the process of finding and displaying documents that match the user's search query.
+In our program, documents are retrieved using the inverted index.
+5. What is Tokenization?
+Tokenization is the process of splitting a text document into individual words or tokens.
+In our code, we use split() to divide documents and search queries into words.
+6. What is a Search Query?
+A search query is a word or group of words entered by the user to find relevant documents.
+Example: machine learning or Python programming.
+7. Which data structures are used in your program?
+We use Python dictionaries and lists. A dictionary stores documents and the inverted index, while lists store words and matching document IDs.
+8. What is the difference between Forward Index and Inverted Index?
+Forward Index	Inverted Index
+Document → Words	Word → Documents
+Stores words for each document	Stores documents for each word
+Document-oriented	Term-oriented
+9. How does your program retrieve documents?
+First, it creates an inverted index for all documents. Then it checks each query word in the index and displays the documents containing at least one matching word.
+
+
