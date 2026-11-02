@@ -78,3 +78,30 @@ Enter an email message to check:  congratulation !!! you won prize
 
 Email Classification Result:
 This Email is HAM (Not Spam).
+
+
+1. What is Email Spam Filtering?
+Email spam filtering is the process of identifying unwanted or fake emails using machine learning algorithms. It classifies emails into Spam and Ham (Not Spam).
+2. What is Spam and Ham?
+- Spam: Unwanted or promotional emails, often containing fake offers or suspicious links.
+- Ham: Genuine and useful emails.
+3. Which algorithm is used in your assignment?
+I used the Multinomial Naive Bayes algorithm. It is a supervised machine learning algorithm commonly used for text classification and spam detection.
+4. What is Naive Bayes?
+Naive Bayes is a supervised classification algorithm based on Bayes' theorem. It predicts a class using probabilities and assumes that features are independent of each other.
+5. What is TF-IDF?
+TF-IDF stands for Term Frequency–Inverse Document Frequency. It converts text into numerical values based on how important a word is in a document compared to the entire collection.
+6. Why is TfidfVectorizer used?
+TfidfVectorizer converts email text into numerical feature vectors so that the machine learning algorithm can process and classify the emails.
+7. What is the purpose of train_test_split?
+It divides the dataset into training and testing data. In our program, 80% is used for training and 20% for testing the model.
+8. What is a Confusion Matrix?
+A confusion matrix evaluates the performance of a classification model. It shows True Positive, True Negative, False Positive and False Negative predictions.
+9. What is Accuracy?
+Accuracy measures how many predictions are correct out of all predictions made by the model.
+. What is classification?	Assigning data to predefined categories.
+13. What is a dataset?	A collection of data used for training and testing.
+14. What is fit()?	Trains the machine learning model.
+15. What is predict()?	Predicts the category of new input data.
+16. What is stratify=y?	Maintains class proportions in training and testing sets.
+17. What is stop_words='english'?	Removes common English words during TF-IDF vectorization.
