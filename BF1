@@ -68,3 +68,45 @@ Total Motifs: 2
 Coding Regions (ORFs):
 ATGCGCGAAATGCCCTAA Length: 18
 ATGCCCTAA Length: 9
+
+1.DNA sequence analysis is the process of studying a DNA sequence to identify its nucleotide composition, motifs, GC content, and potential coding regions.
+2.four nitrogenous bases present in DNA?
+Answer: The four nitrogenous bases are:
+- Adenine (A)
+- Thymine (T)
+- Guanine (G)
+- Cytosine (C)
+A pairs with T, and G pairs with C.
+3. What is GC content? How do you calculate it?
+Answer: GC content is the percentage of Guanine (G) and Cytosine (C) present in a DNA sequence
+Formula:
+\[
+GC\ Content = \frac{G+C}{A+T+G+C}\times100
+\]
+4.A DNA motif is a short sequence of nucleotides that may have an important biological function.
+5. What is a complementary DNA sequence?
+Answer: A complementary DNA sequence is formed by replacing each nucleotide with its pairing base.
+Original	Complement
+A	T
+T	A
+G	C
+C	G
+6. What is an ORF (Open Reading Frame)?
+Answer: ORF is a region of DNA that starts with a start codon and ends with an in-frame stop codon. It represents a potential protein-coding region.
+- Start codon: ATG
+- Stop codons: TAA, TAG, TGA
+7. What is the difference between GC content and AT content?
+Answer:
+GC Content	AT Content
+Percentage of G and C	Percentage of A and T
+GC = G + C	AT = A + T
+Higher GC means more G and C bases	Higher AT means more A and T bases
+Both percentages together equal 100%.
+
+RNA (Ribonucleic Acid) is a nucleic acid that helps in protein synthesis and carries genetic information from DNA to ribosomes.
+
+Important points:
+- RNA is usually single-stranded.
+- It contains ribose sugar.
+- It contains four nitrogenous bases: A, U, G, C.
+- Uracil (U) is present instead of Thymine (T).
