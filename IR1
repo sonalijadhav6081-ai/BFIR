@@ -64,3 +64,29 @@ print(final_text)
 
 O/P 
 Enter a text document:  Information Retrieval is an important part of computer science. It helps users retrieve information efficiently.
+
+1.Text pre-processing is the process of cleaning and preparing raw text before analysis. It includes lowercase conversion, tokenization, stop word removal and stemming.
+2. What is Tokenization?
+Tokenization is the process of breaking a text document into smaller units called tokens, usually words or sentences.
+Example: "I love Python" → ['I', 'love', 'Python']
+3. What are Stop Words?
+Stop words are commonly used words that usually carry less useful information for text analysis.
+Examples: is, am, are, the, a, an, and, or.
+4. What is Stop Word Removal?
+Stop word removal is the process of removing common words from text to reduce unnecessary data and focus on meaningful words.
+In our code, we use a predefined list of stop words.
+5. What is Stemming?
+Stemming is the process of reducing words to their root-like base form by removing prefixes or suffixes.
+Example: playing → play, studies → studi.
+6. Which Python libraries are used in your program?
+- re: Used for text cleaning and removing special characters.
+- NLTK: A Natural Language Processing library (installed in the practical).
+- No external stemming library is used in our code; we implement basic stemming manually.
+7. Why do we convert text into lowercase?
+Lowercase conversion makes all words consistent. For example, Python, PYTHON and python become the same word.
+8. What is the difference between Stemming and Lemmatization?
+Stemming removes word endings to produce a root-like form, which may not be a meaningful word. Lemmatization converts words into their proper dictionary base form.
+9. Why is Text Pre-processing important?
+It removes unnecessary characters and words, reduces text complexity and improves the quality of NLP and text analysis tasks.
+10.Are you using NLTK for stemming in your program?
+Answer: No. Although NLTK is installed, I have implemented a simple rule-based stemming function manually using Python. It removes common suffixes such as ing, ed, ly and s.
