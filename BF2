@@ -1,0 +1,98 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+data = {
+    'Gene': ['Gene1', 'Gene2', 'Gene3', 'Gene4', 'Gene5',
+             'Gene6', 'Gene7', 'Gene8'],
+    'Control': [100, 200, 150, 300, 250, 180, 120, 220],
+    'Treatment': [300, 100, 450, 150, 500, 90, 120, 400]
+}
+
+df = pd.DataFrame(data)
+print("RNA-Seq Dataset:\n", df)
+
+df['Log2FC'] = np.log2(
+    (df['Treatment'] + 1) / (df['Control'] + 1)
+)
+
+df['Expression'] = df['Log2FC'].apply(
+    lambda x: 'Upregulated' if x > 1
+    else ('Downregulated' if x < -1 else 'Not Significant')
+)
+
+print("\nDifferential Gene Expression:\n", df)
+
+print("\nDifferentially Expressed Genes:")
+print(df[df['Expression'] != 'Not Significant'])
+
+df['Function'] = [
+    'Cell Growth', 'Protein Synthesis',
+    'Immune Response', 'Metabolism',
+    'Cell Division', 'Stress Response',
+    'DNA Repair', 'Energy Production'
+]
+
+print("\nFunctional Annotation:")
+print(df[['Gene', 'Expression', 'Function']])
+
+plt.figure(figsize=(10, 5))
+plt.bar(df['Gene'], df['Control'], label='Control')
+plt.bar(df['Gene'], df['Treatment'], alpha=0.7,
+        label='Treatment')
+
+plt.xlabel("Genes")
+plt.ylabel("Expression Level")
+plt.title("RNA-Seq Gene Expression Analysis")
+plt.legend()
+plt.show()
+
+plt.figure(figsize=(8, 5))
+sns.heatmap(df[['Control', 'Treatment']],
+            annot=True, cmap='coolwarm',
+            xticklabels=True, yticklabels=df['Gene'])
+
+plt.title("Gene Expression Heatmap")
+plt.show()
+
+print("\n--- RNA-Seq Analysis Report ---")
+print("Total Genes:", len(df))
+print("Upregulated Genes:",
+      sum(df['Expression'] == 'Upregulated'))
+print("Downregulated Genes:",
+      sum(df['Expression'] == 'Downregulated'))
+print("Not Significant Genes:",
+      sum(df['Expression'] == 'Not Significant'))
+
+print("\nAnalysis Completed Successfully!")
+
+
+1. What is RNA-Seq?
+Answer: RNA-Seq stands for RNA Sequencing. It is a technique used to study gene expression by sequencing RNA molecules. It helps identify which genes are active and how much they are expressed in a cell or tissue.
+2. What is gene expression?
+Answer: Gene expression is the process by which information from a gene is used to produce functional products such as RNA or proteins. It tells us whether a gene is active or inactive.
+3. What is differential gene expression analysis?
+Answer: Differential gene expression analysis is the process of comparing gene expression levels between two or more conditions, such as healthy and diseased samples, to identify genes that show significant changes in expression.
+Example: Comparing gene expression in normal cells and cancer cells.
+4. What are upregulated and downregulated genes?
+Answer:
+- Upregulated genes: Genes whose expression increases in a particular condition.
+- Downregulated genes: Genes whose expression decreases in a particular condition.
+5. What is Fold Change and Log2 Fold Change?
+Answer: Fold Change measures how much gene expression changes between two conditions.
+Log2 Fold Change is the logarithm (base 2) of the fold change.
+6.- p-value: Measures the statistical evidence against the null hypothesis for a gene.
+- Adjusted p-value: Corrects p-values for multiple testing to reduce false positives.
+Generally, adjusted p-value less than 0.05 is considered statistically significant.
+7. What is Functional Annotation?
+Answer: Functional annotation is the process of identifying the biological function of genes, including their roles in cellular processes, molecular functions, and biological pathways.
+Example: Identifying whether a gene is involved in cell growth, immunity, or metabolism.
+8. What is the difference between DNA, RNA and mRNA?
+Answer:
+DNA	RNA	mRNA
+Stores genetic information	Helps in protein synthesis	Carries genetic instructions
+Usually double-stranded	Usually single-stranded	Single-stranded
+Contains T	Contains U	Contains U
+. What is a heatmap?	A graphical representation of gene expression levels using colors.
+What is FDR?	False Discovery Rate; the expected proportion of false positives among significant results.
