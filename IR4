@@ -1,0 +1,63 @@
+#4
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.cluster import AgglomerativeClustering
+from sklearn.preprocessing import StandardScaler
+from scipy.cluster.hierarchy import linkage, dendrogram
+
+iris = load_iris()
+X = iris.data
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+model = AgglomerativeClustering(
+    n_clusters=3,
+    linkage="ward"
+)
+
+clusters = model.fit_predict(X_scaled)
+
+df = pd.DataFrame(
+    X,
+    columns=iris.feature_names
+)
+df["Cluster"] = clusters
+
+print("First 10 records with cluster labels:")
+print(df.head(10))
+
+print("\nNumber of records in each cluster:")
+print(df["Cluster"].value_counts().sort_index())
+
+linkage_matrix = linkage(X_scaled, method="ward")
+
+plt.figure(figsize=(18, 8))
+dendrogram(
+    linkage_matrix,
+    truncate_mode=None,
+    leaf_rotation=90,
+    leaf_font_size=6
+)
+
+plt.title("Agglomerative Hierarchical Clustering Dendrogram")
+plt.xlabel("Data Points (0 to 149)")
+plt.ylabel("Euclidean Distance")
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(8, 5))
+
+plt.scatter(
+    X_scaled[:, 0],
+    X_scaled[:, 1],
+    c=clusters,
+    cmap="viridis"
+)
+
+plt.title("Iris Dataset Clusters")
+plt.xlabel("Standardized Sepal Length")
+plt.ylabel("Standardized Sepal Width")
+plt.tight_layout()
+plt.show()
