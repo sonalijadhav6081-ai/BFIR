@@ -1,0 +1,160 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import (
+    accuracy_score, classification_report,
+    confusion_matrix
+)
+
+data = load_breast_cancer()
+
+X = pd.DataFrame(data.data, columns=data.feature_names)
+y = data.target
+
+print("Dataset Shape:", X.shape)
+print("\nFirst Five Records:")
+print(X.head())
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+scaler = StandardScaler()
+
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+rf = RandomForestClassifier(
+    n_estimators=100, random_state=42
+)
+
+rf.fit(X_train, y_train)
+
+rf_pred = rf.predict(X_test)
+
+print("\n--- Random Forest Results ---")
+print("Accuracy:", accuracy_score(y_test, rf_pred))
+print(classification_report(
+    y_test, rf_pred, target_names=data.target_names
+))
+
+svm = SVC(kernel="linear")
+
+svm.fit(X_train_scaled, y_train)
+
+svm_pred = svm.predict(X_test_scaled)
+
+print("\n--- SVM Results ---")
+print("Accuracy:", accuracy_score(y_test, svm_pred))
+print(classification_report(
+    y_test, svm_pred, target_names=data.target_names
+))
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+
+for ax, pred, title in zip(
+    axes, [rf_pred, svm_pred],
+    ["Random Forest", "SVM"]
+):
+    cm = confusion_matrix(y_test, pred)
+    ax.imshow(cm, cmap="Blues")
+    ax.set_title(title)
+    ax.set_xlabel("Predicted")
+    ax.set_ylabel("Actual")
+    ax.set_xticks([0, 1])
+    ax.set_yticks([0, 1])
+
+    for i in range(2):
+        for j in range(2):
+            ax.text(j, i, cm[i, j],
+                    ha="center", va="center")
+
+plt.tight_layout()
+plt.show()
+
+importance = pd.Series(
+    rf.feature_importances_,
+    index=X.columns
+).sort_values(ascending=False)
+
+print("\nTop 10 Important Features:")
+print(importance.head(10))
+
+importance.head(10).plot(
+    kind="bar", figsize=(9, 5),
+    title="Top 10 Important Genomic-Style Features"
+)
+
+plt.ylabel("Importance")
+plt.tight_layout()
+plt.show()
+
+print("\n--- Model Performance Comparison ---")
+
+print("Random Forest Accuracy:",
+      accuracy_score(y_test, rf_pred))
+
+print("SVM Accuracy:",
+      accuracy_score(y_test, svm_pred))
+
+print("\n===== FINAL ANALYSIS REPORT =====")
+
+print("Total Samples:", len(X))
+print("Total Features:", X.shape[1])
+print("Training Samples:", len(X_train))
+print("Testing Samples:", len(X_test))
+
+print("Random Forest Accuracy:",
+      round(accuracy_score(y_test, rf_pred) * 100, 2), "%")
+
+print("SVM Accuracy:",
+      round(accuracy_score(y_test, svm_pred) * 100, 2), "%")
+
+print("\nBest Model:")
+
+if accuracy_score(y_test, rf_pred) > accuracy_score(y_test, svm_pred):
+    print("Random Forest performs better.")
+elif accuracy_score(y_test, rf_pred) < accuracy_score(y_test, svm_pred):
+    print("SVM performs better.")
+else:
+    print("Both models have equal accuracy.")
+
+print("\nMachine Learning Classification Completed!")
+
+
+
+1. What is Machine Learning in Genomics?
+Machine Learning in Genomics uses algorithms to analyze genetic or biological data and identify patterns. It helps classify diseases and predict biological conditions.
+2. Which dataset is used in your assignment?
+I used the Breast Cancer Wisconsin dataset from Scikit-learn. It contains 569 samples and 30 features to classify tumors as malignant or benign.
+3. Which machine learning algorithms are used?
+I used two algorithms:
+- Random Forest Classifier
+- Support Vector Machine (SVM)
+Both are used for classification.
+4. What is Random Forest?
+Random Forest is a supervised machine learning algorithm that combines multiple decision trees. It gives the final prediction based on majority voting.
+5. What is SVM?
+SVM stands for Support Vector Machine. It is a supervised learning algorithm that finds the best decision boundary (hyperplane) to separate different classes.
+6. Why is StandardScaler used?
+StandardScaler is used to bring features onto a similar scale. It is especially important for SVM because SVM is sensitive to feature scaling.
+7. What is the purpose of train_test_split?
+It divides the dataset into training and testing data. In our program, 80% data is used for training and 20% for testing.
+8. What is a Confusion Matrix?
+A confusion matrix is used to evaluate classification performance. It shows True Positive, True Negative, False Positive and False Negative predictions.
+9. What is Feature Importance?
+Feature importance identifies which features contribute most to the Random Forest model's predictions. We use it to display the top 10 important features.
+What is classification?	Predicting the category or class of given data.
+11. What is accuracy?	Percentage of correctly predicted samples.
+12. What is supervised learning?	Learning using labeled training data.
+13. What is a hyperplane?	A decision boundary used by SVM to separate classes.
+14. What is n_estimators=100?	It means Random Forest uses 100 decision trees.
+15. What is a kernel in SVM?	A function used to separate data in a feature space.
+16. What is malignant?	A cancerous tumor that can spread.
+17. What is benign?	A non-cancerous tumor that does not spread like malignant tumors.
