@@ -1,0 +1,80 @@
+#3
+import pandas as pd
+import numpy as np
+
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import classification_report
+
+df = pd.read_csv("spam_ham_dataset.csv")
+
+print("First 5 rows of dataset:")
+print(df.head())
+
+print("\nDataset Columns:")
+print(df.columns)
+
+text_col = 'text'
+label_col = 'label'
+
+df = df.dropna(subset=[text_col, label_col])
+
+X = df[text_col].astype(str)
+y = df[label_col].astype(str).str.lower().str.strip()
+
+print("\nTotal Emails:", len(df))
+print("\nEmail Categories:")
+print(y.value_counts())
+
+tfidf = TfidfVectorizer(stop_words='english')
+
+X_tfidf = tfidf.fit_transform(X)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X_tfidf, y,
+    test_size=0.2,
+    random_state=42,
+    stratify=y
+)
+
+print("\nTraining Data:", X_train.shape[0])
+print("Testing Data:", X_test.shape[0])
+
+model = MultinomialNB()
+
+model.fit(X_train, y_train)
+
+print("\nModel Training Completed!")
+
+y_pred = model.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred)
+
+print("\nModel Accuracy:", round(accuracy * 100, 2), "%")
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
+email = input("\nEnter an email message to check: ")
+
+email_tfidf = tfidf.transform([email])
+
+prediction = model.predict(email_tfidf)
+
+print("\nEmail Classification Result:")
+
+if prediction[0] == 'spam':
+    print("This Email is SPAM!")
+else:
+    print("This Email is HAM (Not Spam).")
+
+O/P
+Enter an email message to check:  congratulation !!! you won prize
+
+Email Classification Result:
+This Email is HAM (Not Spam).
