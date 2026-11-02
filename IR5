@@ -1,0 +1,90 @@
+#5
+!pip install requests beautifulsoup4 pandas
+
+import requests
+import pandas as pd
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+
+base_url = "https://books.toscrape.com/"
+
+pages = int(input("Enter number of pages to crawl (1-50): "))
+
+products = []
+current_url = base_url
+
+if pages < 1 or pages > 50:
+    print("Please enter pages between 1 and 50.")
+
+else:
+    for page in range(pages):
+
+        print(f"\nCrawling Page {page + 1}: {current_url}")
+
+        response = requests.get(
+            current_url,
+            headers={"User-Agent": "Mozilla/5.0"},
+            timeout=15
+        )
+
+        if response.status_code != 200:
+            print("Unable to access website.")
+            break
+
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        items = soup.find_all("article", class_="product_pod")
+
+        for item in items:
+
+            name = item.find("h3").find("a")["title"]
+
+            price = item.find(
+                "p", class_="price_color"
+            ).get_text(strip=True)
+
+            price = price.replace("Â£", "£").replace("Ã‚Â£", "£")
+
+            availability = item.find(
+                "p", class_="instock availability"
+            ).get_text(strip=True)
+
+            link = item.find("h3").find("a")["href"]
+
+            product_url = urljoin(current_url, link)
+
+            products.append({
+                "Product Name": name,
+                "Price": price,
+                "Availability": availability,
+                "Product Link": product_url
+            })
+
+        next_page = soup.find("li", class_="next")
+
+        if next_page:
+            next_link = next_page.find("a")["href"]
+            current_url = urljoin(current_url, next_link)
+        else:
+            break
+
+    df = pd.DataFrame(products)
+
+print("\n========== EXTRACTED PRODUCT INFORMATION ==========")
+
+for i, product in enumerate(products, start=1):
+
+    print(f"\nProduct {i}")
+    print("----------------------------------")
+    print("Product Name :", product["Product Name"])
+    print("Price        :", product["Price"])
+    print("Availability :", product["Availability"])
+    print("Product Link :", product["Product Link"])
+
+print("\n----------------------------------")
+print("Total Products Extracted:", len(products))
+
+df = pd.DataFrame(products)
+df.to_csv("products.csv", index=False, encoding="utf-8-sig")
+
+print("\nData successfully saved to products.csv")
