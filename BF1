@@ -1,0 +1,70 @@
+dna = input("Enter DNA Sequence: ").upper()
+
+if not dna or any(b not in "ATGC" for b in dna):
+    print("Invalid DNA Sequence")
+    exit()
+
+complement = dna.translate(str.maketrans("ATGC", "TACG"))
+
+print("\nOriginal Sequence:", dna)
+print("Complement:", complement)
+print("Reverse:", dna[::-1])
+print("Reverse Complement:", complement[::-1])
+
+for base in "ATGC":
+    print(base, ":", dna.count(base))
+
+gc = ((dna.count("G") + dna.count("C")) / len(dna)) * 100
+print("\nGC Content: {:.2f}%".format(gc))
+
+motif = input("\nEnter motif: ").upper()
+
+if not motif or any(b not in "ATGC" for b in motif):
+    print("Invalid motif")
+else:
+    positions = [i+1 for i in range(len(dna))
+                 if dna.startswith(motif, i)]
+    print("Motif Positions:", positions)
+    print("Total Motifs:", len(positions))
+
+stop_codons = ["TAA", "TAG", "TGA"]
+orfs = []
+
+for frame in range(3):
+    for i in range(frame, len(dna)-2, 3):
+        if dna[i:i+3] == "ATG":
+            for j in range(i+3, len(dna)-2, 3):
+                if dna[j:j+3] in stop_codons:
+                    orfs.append(dna[i:j+3])
+                    break
+
+print("\nCoding Regions (ORFs):")
+if orfs:
+    for orf in orfs:
+        print(orf, "Length:", len(orf))
+else:
+    print("No coding regions found")
+
+print("\nDNA Sequence Analysis Completed!") 
+
+O/P 
+Enter DNA Sequence:  ATGCGCGAAATGCCCTAA
+
+Original Sequence: ATGCGCGAAATGCCCTAA
+Complement: TACGCGCTTTACGGGATT
+Reverse: AATCCCGTAAAGCGCGTA
+Reverse Complement: TTAGGGCATTTCGCGCAT
+A : 6
+T : 3
+G : 4
+C : 5
+
+GC Content: 50.00%
+
+Enter motif:  ATG
+Motif Positions: [1, 10]
+Total Motifs: 2
+
+Coding Regions (ORFs):
+ATGCGCGAAATGCCCTAA Length: 18
+ATGCCCTAA Length: 9
