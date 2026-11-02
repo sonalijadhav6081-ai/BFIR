@@ -1,0 +1,70 @@
+
+n = int(input("Enter number of documents: "))
+
+documents = {}
+
+for i in range(n):
+    doc = input(f"\nEnter Document {i+1}: ")
+    documents[f"D{i+1}"] = doc.lower().split()
+
+inverted_index = {}
+
+for doc_id, words in documents.items():
+    for word in words:
+
+        if word not in inverted_index:
+            inverted_index[word] = []
+
+        if doc_id not in inverted_index[word]:
+            inverted_index[word].append(doc_id)
+
+print("\nInverted Index:")
+
+for word, doc_ids in inverted_index.items():
+    print(word, ":", doc_ids)
+
+query = input("\nEnter search query: ").lower().split()
+
+retrieved_docs = []
+
+for word in query:
+    if word in inverted_index:
+        for doc_id in inverted_index[word]:
+            if doc_id not in retrieved_docs:
+                retrieved_docs.append(doc_id)
+
+print("\nRetrieved Documents:")
+
+if retrieved_docs:
+    for doc_id in retrieved_docs:
+        print(doc_id, ":", " ".join(documents[doc_id]))
+else:
+    print("No matching documents found.")
+
+O/P
+Enter number of documents:  3
+
+Enter Document 1:  Python is a programming language
+
+Enter Document 2:  Java is a programming language
+
+Enter Document 3:  Information retrieval uses search techniques
+
+Inverted Index:
+python : ['D1']
+is : ['D1', 'D2']
+a : ['D1', 'D2']
+programming : ['D1', 'D2']
+language : ['D1', 'D2']
+java : ['D2']
+information : ['D3']
+retrieval : ['D3']
+uses : ['D3']
+search : ['D3']
+techniques : ['D3']
+
+Enter search query:  programming
+
+Retrieved Documents:
+D1 : python is a programming language
+D2 : java is a programming language
