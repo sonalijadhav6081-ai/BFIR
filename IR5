@@ -88,3 +88,26 @@ df = pd.DataFrame(products)
 df.to_csv("products.csv", index=False, encoding="utf-8-sig")
 
 print("\nData successfully saved to products.csv")
+
+
+1. What is a web crawler?
+A web crawler is an automated program that visits web pages and collects information from them. It is used to extract product details, prices, links, and other website data.
+2. Which website is used in your practical?
+I used Books to Scrape (books.toscrape.com). It is a demo e-commerce website designed for practicing web scraping.
+3. What is web scraping?
+Web scraping is the process of extracting useful information from websites using programming. In this practical, I extracted product names, prices, availability, and product links.
+4. Which Python libraries are used?
+- Requests: Fetches the website's HTML content.
+- BeautifulSoup: Parses HTML and extracts information.
+- Pandas: Stores and saves extracted data.
+- urljoin: Creates complete URLs from relative links.
+5. What is BeautifulSoup?
+BeautifulSoup is a Python library used to parse HTML and XML documents. It helps find and extract specific elements from a web page.
+6. What is the purpose of the Requests library?
+The Requests library sends HTTP requests to websites and retrieves their responses. In my code, requests.get() downloads the website's HTML content.
+7. What is HTML parsing?
+HTML parsing means reading and analyzing the HTML structure of a webpage to find specific information, such as product names, prices, and links.
+8. What is pagination in web crawling?
+Pagination means dividing website content into multiple pages. My program follows the Next link to crawl the required number of pages.
+9. Why do we use Pandas and CSV?
+Pandas organizes the extracted product information into a DataFrame. The to_csv() function saves the data into a CSV file named products.csv.
